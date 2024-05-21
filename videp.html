@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Player</title>
+  <style>
+    /* Style for the video container */
+    #video-container {
+      width: 500px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="video-container">
+    <video id="video-player" width="100%" controls>
+      <source src="" id="video-source" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Button to browse and select video file -->
+  <input type="file" id="file-input" accept="video/*">
+  <button onclick="loadVideo()">Load Video</button>
+
+  <script>
+    const video = document.getElementById('video-player');
+    const videoSource = document.getElementById('video-source');
+    const fileInput = document.getElementById('file-input');
+
+    // Function to load the selected video file
+    function loadVideo() {
+      const file = fileInput.files[0];
+      if (file) {
+        const fileURL = URL.createObjectURL(file);
+        videoSource.src = fileURL;
+        video.load();
+      }
+    }
+
+    // Function to play or pause the video
+    function togglePlay() {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+
+    // Function to stop the video
+    function stopVideo() {
+      video.pause();
+      video.currentTime = 0;
+    }
+
+    // Function to mute or unmute the video
+    function toggleMute() {
+      video.muted = !video.muted;
+    }
+
+    // Function to change volume
+    function changeVolume(volume) {
+      video.volume = volume;
+    }
+
+    // Function to seek video
+    function seekVideo(seconds) {
+      video.currentTime += seconds;
+    }
+
+    // Event listeners for play/pause, stop, mute/unmute buttons
+    video.addEventListener('click', togglePlay);
+    video.addEventListener('dblclick', togglePlay);
+
+    // Other controls can be added using event listeners
+  </script>
+</body>
+</html>
